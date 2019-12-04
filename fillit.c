@@ -8,6 +8,7 @@
     while (i < n)
 */
 
+
 void    print_mas(int *a, int n)
 {
     int     i;
@@ -40,7 +41,7 @@ void	ft_print_list(t_tetris *list)
 		    printf("%d ", a[i]);
             i++;
         }
-        printf("\n%c\n", list->c);
+        printf("     %c\n", list->c);
 		list = list->next;
 	}
 }
@@ -179,6 +180,8 @@ int     check_structure(void)
             str_count++;
             free(line);
         }
+        shift(buf);
+        final_check(buf);
         list = ft_create_node(list,buf, k + 'A');
         k++;
         //print_mas(buf, 8);
