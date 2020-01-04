@@ -46,7 +46,7 @@ void	ft_print_list(t_tetris *list)
 	}
 }
 
-t_tetris	*ft_create_node(t_tetris *list, int *a, char c)
+t_tetris	*ft_create_node_inbegin(t_tetris *list, int *a, char c)
 {
 	t_tetris	*tmp;
 
@@ -56,9 +56,29 @@ t_tetris	*ft_create_node(t_tetris *list, int *a, char c)
     //print_mas(a, 8);
 	tmp->tet_id = a;
 	tmp->c = c;
-	tmp->next = list;
+	tmp->next = NULL;
 	return (tmp);
 }
+t_tetris	*ft_create_node_end(t_tetris *list, int *a, char c)
+{
+	t_tetris	*header;
+
+	header = list;
+	if (list)
+	{
+		while (list->next)
+			list = list->next;
+
+	list->next = ft_create_node_inbegin(list, a, c);
+	}
+	else
+	{
+	list = ft_create_node_inbegin(list, a, c);
+	return (list);
+	}
+	return(header);
+}
+
 
 int     validity(void)
 {
@@ -123,7 +143,7 @@ int     validity(void)
         {
             if (g == 0)
                 break;
-        }        
+        }
     }
     printf("good\n");
     close(fd);
@@ -182,7 +202,7 @@ int     check_structure(void)
         }
         shift(buf);
         final_check(buf);
-        list = ft_create_node(list,buf, k + 'A');
+        list = ft_create_node_end(list,buf, k + 'A');
         k++;
         //print_mas(buf, 8);
         if (!(get_next_line(fd, &line)))
@@ -207,7 +227,7 @@ int     main(void)
 {
     //int     a[5] = {0, 1, 2, 3, 4};
 
-    //validity();
+    validity();
     check_structure();
     return (0);
 }
