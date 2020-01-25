@@ -163,7 +163,7 @@ t_tetris    *ft_create_elem(int *content, t_tetris *next)
     }
     return (elem);
 }
-int     check_structure(void)
+t_tetris      *check_structure(void)
 {
     int     fd;
     char     *line;
@@ -220,14 +220,17 @@ int     check_structure(void)
     }
     //free(line);
     ft_print_list(list);
-    return (0);
+    return (list);
 }
 
 int     main(void)
 {
-    //int     a[5] = {0, 1, 2, 3, 4};
+    int     i = 0;
+    t_tetris      *list;
 
     validity();
-    check_structure();
+    list = check_structure();
+    //ft_print_list(list);
+    solution(list);
     return (0);
 }

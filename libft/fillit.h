@@ -1,6 +1,6 @@
 #ifndef FILLIT_H
 # define FILLIT_H
-#include "get_next_line.h"
+//#include "get_next_line.h"
 #include "libft.h"
 int		read_one(const int fd, char *line);
 void	ft_exit(void);
@@ -34,5 +34,25 @@ typedef struct  s_tetris
 # define S (int[8]) {0,1,0,2,1,0,1,1}
 # define S90 (int[8]) {0,0,1,0,1,1,2,1}
 # define Z (int[8]) {0,0,0,1,1,1,1,2}
-# define Z90 (int[8]) {0,1,1,0,1,1,2,0} 
+# define Z90 (int[8]) {0,1,1,0,1,1,2,0}
+
+void	ft_print_list(t_tetris *list);
+int     max_x(int *a);
+int     max_y(int *a);
+int     collision_grid(int grid_size, int *tet_id);
+int     collision_piece(char **grid, int *tet_id);
+int     collision(char **grid, int grid_size, int *tet_id);
+int     floor_of_sqrt(int n);
+int     start_size(t_tetris *list);
+void    solution(t_tetris *list);
+int     exempt(char **grid, t_tetris *list, int grid_size);
+int     insert_n_clear(int  *tet_id, t_tetris *list, char **grid, int grid_size);
+void    insert(int *tet_id, char **grid, int grid_size, char c);
+void    clear(int *tet_id, char **grid, int grid_size);
+void    shift_yx(int *tet_id, int y, int x);
+void    copy(int *a, int *b);
+void    print(char **grid, int grid_size);
+char	**create_grid(int grid_size);
+void    print_mas(int *a, int n);
+
 #endif
