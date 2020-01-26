@@ -84,6 +84,13 @@ void    ft_exit(void)
     ft_putstr("error\n");
     exit(0);
 }
+
+void    ft_exit1(char *line)
+{
+    ft_putstr("error\n");
+    free(line);
+    exit(0);
+}
 int    check_line_for_hash_n_dots(char *line)
 {
     int     l;
@@ -107,32 +114,16 @@ int    check_line_for_hash_n_dots(char *line)
             return (hash_count);
 }
 
-/*int     second_part_of_validation(int g, int hash_count, char *line)
+void    kostyl(char *line)
 {
-    if (hash_count != 4 || g == 0)
-            ft_exit();
-        g = get_next_line(fd, &line);
-        if (g == 1)
-        {
-            if (ft_strlen(line))
-            {
-                free(line);
-                ft_exit();
-            }
-        }
-        else
-        {
-            if (g == 0)
-                break;
-        }
-    }
-}*/
+    if (ft_strlen(line))
+        ft_exit1(line);
+}
 int     validity(void)
 {
     int     str_count;
     int     hash_count;
     char    *line;
-    int     g = 10;
     int     fd;
 
     fd = open("file", O_RDONLY);
@@ -141,29 +132,18 @@ int     validity(void)
     {
         str_count = 0;
         hash_count = 0;
-        while (str_count < 4 && get_next_line(fd, &line) != 0)
-        {
+        while (str_count++ < 4 && get_next_line(fd, &line) != 0)
             hash_count = hash_count + check_line_for_hash_n_dots(line);
-            str_count++;
-        }
-        if (hash_count != 4 || g == 0)
-            ft_exit();
-        g = get_next_line(fd, &line);
-        if (g == 1)
-        {
-            if (ft_strlen(line))
-            {
-                free(line);
-                ft_exit();
-            }
-        }
+        if (hash_count != 4)
+            ft_exit1(line);
+        if (get_next_line(fd, &line) == 1)
+            kostyl(line);
         else
         {
-            if (g == 0)
+            if (get_next_line(fd, &line) == 0)
                 break;
         }
     }
-    printf("good\n");
     close(fd);
     return (0);
 }
