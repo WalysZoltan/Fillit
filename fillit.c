@@ -79,14 +79,59 @@ t_tetris	*ft_create_node_end(t_tetris *list, int *a, char c)
 	return(header);
 }
 
-
-int     validity(void)
+void    ft_exit(void)
+{
+    ft_putstr("error\n");
+    exit(0);
+}
+int    check_line_for_hash_n_dots(char *line)
 {
     int     l;
+    int     i;
+    int     hash_count;
+
+    i = 0;
+    hash_count = 0;
+    l = ft_strlen(line);
+    while (line[i])
+            {
+                if (line[i] != '.' && line[i] != '#')
+                    ft_exit();
+                if (line[i] == '#')
+                    hash_count++;
+                i++;
+            }
+            if ((l != 4) || (hash_count > 4))
+                ft_exit();
+            free(line);
+            return (hash_count);
+}
+
+/*int     second_part_of_validation(int g, int hash_count, char *line)
+{
+    if (hash_count != 4 || g == 0)
+            ft_exit();
+        g = get_next_line(fd, &line);
+        if (g == 1)
+        {
+            if (ft_strlen(line))
+            {
+                free(line);
+                ft_exit();
+            }
+        }
+        else
+        {
+            if (g == 0)
+                break;
+        }
+    }
+}*/
+int     validity(void)
+{
     int     str_count;
     int     hash_count;
     char    *line;
-    int     i;
     int     g = 10;
     int     fd;
 
@@ -98,45 +143,18 @@ int     validity(void)
         hash_count = 0;
         while (str_count < 4 && get_next_line(fd, &line) != 0)
         {
-            l  = ft_strlen(line);
-            i = 0;
-            while (line[i])
-            {
-                if (line[i] != '.' && line[i] != '#')
-                {
-                    printf("error\n");
-                    exit(0);
-                }
-                if (line[i] == '#')
-                    hash_count++;
-                i++;
-            }
-            if ((l != 4) || (hash_count > 4))
-            {
-                printf("error\n");
-                exit(0);
-            }
-            free(line);
+            hash_count = hash_count + check_line_for_hash_n_dots(line);
             str_count++;
         }
-        if (hash_count != 4)
-        {
-            printf("error\n");
-                exit(0);
-        }
-        if (g == 0)
-        {
-            printf("error\n");
-            exit(0);
-        }
+        if (hash_count != 4 || g == 0)
+            ft_exit();
         g = get_next_line(fd, &line);
         if (g == 1)
         {
             if (ft_strlen(line))
             {
-                printf("error\n");
                 free(line);
-                exit(0);
+                ft_exit();
             }
         }
         else
