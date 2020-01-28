@@ -119,12 +119,11 @@ void    kostyl(char *line)
     if (ft_strlen(line))
         ft_exit1(line);
 }
-int     validity(void)
+int     validity(int fd)
 {
     int     str_count;
     int     hash_count;
     char    *line;
-    int     fd;
 
     fd = open("file", O_RDONLY);
     line = NULL;
@@ -161,27 +160,22 @@ t_tetris    *ft_create_elem(int *content, t_tetris *next)
     }
     return (elem);
 }
-t_tetris      *check_structure(void)
+void     filling_mas(int *buf, int i, int str_count)
 {
-    int     fd;
-    char     *line;
-    int     str_count;
-    int     i;
-    int     *buf;
+        static int j = 0;
+                        buf[j] = str_count;
+                    buf[j + 1] = i;
+                    j = j + 2;
+}
+int    *find_coord(int fd,int str_count,int i)
+{
     int     j;
-    int     k = 0;
-    int     m = 0;
-    t_tetris    *list;
+    int    *buf;
+    char    *line;
 
-    list = NULL;
-    fd = open("file", O_RDONLY);
-    while (1)
-    {
-        buf = NULL;
+    j = 0;
+    buf = NULL;
         buf = (int*)malloc(sizeof(int) * 8);
-        //print_mas(buf, 8);
-        j = 0;
-        str_count = 0;
         while ((str_count < 4) && (get_next_line(fd, &line)))
         {
             i = 0;
@@ -198,37 +192,67 @@ t_tetris      *check_structure(void)
             str_count++;
             free(line);
         }
+return (buf);
+}
+
+t_tetris      *check_structure(int fd)
+{
+    int     k;
+    t_tetris    *list;
+    int        *buf;
+    char        *line;
+    int     str_count;
+    int i;
+
+    i = 0;
+    k = 0;
+    list = NULL;
+    fd = open("file", O_RDONLY);
+    while (1)
+    {
+        str_count = 0;
+        buf = find_coord(fd,str_count,i);
         shift(buf);
         final_check(buf);
         list = ft_create_node_end(list,buf, k + 'A');
-        k++;
-        //print_mas(buf, 8);
+        k > 27 ? ft_exit()  :k++;
         if (!(get_next_line(fd, &line)))
             break;
         line = NULL;
-        /*printf("tetramino coordinates\n");
-        m = 0;
-            while (m < 8)
-            {
-                printf("%d ", buf[m]);
-                m++;
-            }
-            printf("\n");*/
-        //free(buf);
     }
-    //free(line);
-    ft_print_list(list);
     return (list);
 }
 
+/*int     main(int argc, char **argv)
+{
+    t_tetris      *list;
+    int             fd;
+
+    fd = 0;
+    if (argc != 2)
+    {
+        ft_putstr("usage: ./fillit source_file\n");
+        exit(0);
+    }
+    fd = open(argv[1], O_RDONLY);
+    if (fd < 0)
+        ft_exit();
+    validity(fd);
+    list = check_structure(fd);
+    solution(list);
+    return (0);
+}*/
+
 int     main(void)
 {
-    int     i = 0;
     t_tetris      *list;
+    int             fd;
 
-    validity();
-    list = check_structure();
-    //ft_print_list(list);
+    fd = open("file", O_RDONLY);
+    if (fd < 0)
+        ft_exit();
+    validity(fd);
+    list = check_structure(fd);
     solution(list);
     return (0);
 }
