@@ -1,32 +1,40 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/25 17:12:45 by wzoltan           #+#    #+#              #
-#    Updated: 2020/01/25 18:11:23 by wzoltan          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME			= fillit
 
-NAME = fillit
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES =
-SRC = ./libft/algorithm.c ./libft/fillit.c ./libft/grid.c ./libft/max_n_check.c
-OBJS = algorithm.o fillit.o grid.o max_n_check.o
+CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror
+
+SRCS			= srcs/grid_ko.c \
+				  srcs/max_n_check.c \
+				  srcs/fillit.c \
+				  srcs/algorithm1.c \
+				  srcs/algorithm2.c \
+				  srcs/algorithm3.c \
+				  srcs/main.c \
+				  srcs/list_n_exit.c
+
+OBJS = $(subst .c,.o,$(subst srcs/,,$(SRCS)))
+
+
+
 all: $(NAME)
 
-$(NAME):
-	make -C ./libft/
-	gcc  -c $(SRC)
-	gcc  -o $(NAME) $(OBJS)
+$(NAME): lib $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libft -lft
+
+$(OBJS):
+	$(CC) $(CFLAGS) -c $(SRCS) -Iincludes/ -Ilibft/includes/
+
+lib:
+	make -C libft
 
 clean:
-	rm -rf $(OBJS)
-	make -C libft/ clean
+	/bin/rm -rf $(OBJS)
+	make -C libft clean
+
 fclean: clean
-		rm -rf $(NAME)
-		make -C ./libft/ fclean
+	/bin/rm -rf $(NAME)
+	make -C libft fclean
 
 re: fclean all
+
+.PHONY: clean fclean all re jgengo
