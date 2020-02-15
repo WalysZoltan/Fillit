@@ -6,7 +6,7 @@
 /*   By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 18:40:53 by wzoltan           #+#    #+#             */
-/*   Updated: 2020/02/15 16:52:26 by wzoltan          ###   ########.fr       */
+/*   Updated: 2020/02/15 21:03:18 by wzoltan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,15 @@ t_tetris	*check_structure(int fd)
 		k > 27 ? ft_exit() : k++;
 		if (!(get_next_line(fd, &line)))
 		{
+		    //free(line);
 			break;
 		}
-		line = NULL;
-		free(line);
+		//line = NULL;
+		buf = NULL;
+		free(buf);
+		//ft_strdel(&buf);
+		//free(line);
+		ft_strdel(&line);
 	}
 	return (list);
 }
@@ -65,9 +70,30 @@ int			main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	list = check_structure(fd);
 	solution(list);
-	exit(EXIT_SUCCESS);
+
+	//exit(EXIT_SUCCESS);
 }
 
+// void	free_list(t_tetris *list)
+// {
+// 	if (list->next)
+// 		free_list(list);
+// 	free(list->tet_id);
+// 	free(list);
+// }
+
+void	free_list(t_tetris *list)
+{
+	t_tetris *tmp;
+
+	while (list->next != NULL)
+	{
+	    tmp = list;
+		free(list->tet_id);
+		list = list->next;
+		free(tmp);
+	}
+}
 /*int			main(void)
 {
 	t_tetris		*list;

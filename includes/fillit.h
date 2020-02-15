@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbriccan <cbriccan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 19:07:37 by wzoltan           #+#    #+#             */
-/*   Updated: 2020/02/14 15:26:53 by cbriccan         ###   ########.fr       */
+/*   Updated: 2020/02/15 17:26:55 by wzoltan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ t_tetris				*check_structure(int fd);
 int						correct_1(int *a);
 int						correct_2(int *a);
 void					free_t_tetris(t_tetris *stack);
+void					free_list(t_tetris *list);
 #endif

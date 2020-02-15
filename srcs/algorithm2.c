@@ -6,7 +6,7 @@
 /*   By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 20:43:53 by cbriccan          #+#    #+#             */
-/*   Updated: 2020/01/28 21:58:31 by wzoltan          ###   ########.fr       */
+/*   Updated: 2020/02/15 20:46:04 by wzoltan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	solution(t_tetris *list)
 	}
 	print(grid, size);
 	free_grid(grid, size);
+	free_list(list);
 	exit(EXIT_SUCCESS);
 }
 
