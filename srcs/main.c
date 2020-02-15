@@ -6,7 +6,7 @@
 /*   By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 18:40:53 by wzoltan           #+#    #+#             */
-/*   Updated: 2020/02/15 16:42:34 by wzoltan          ###   ########.fr       */
+/*   Updated: 2020/02/15 16:52:26 by wzoltan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ t_tetris	*check_structure(int fd)
 		k > 27 ? ft_exit() : k++;
 		if (!(get_next_line(fd, &line)))
 		{
-			//free(line);
 			break;
 		}
 		line = NULL;
+		free(line);
 	}
 	return (list);
 }
