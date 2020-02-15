@@ -1,7 +1,7 @@
 NAME			= fillit
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			=
 
 SRCS			= srcs/grid_ko.c \
 				  srcs/max_n_check.c \
@@ -19,10 +19,10 @@ OBJS = $(subst .c,.o,$(subst srcs/,,$(SRCS)))
 all: $(NAME)
 
 $(NAME): lib $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libft -lft
+	$(CC) -g $(CFLAGS) -o $(NAME) $(OBJS) -L libft -lft
 
 $(OBJS):
-	$(CC) $(CFLAGS) -c $(SRCS) -Iincludes/ -Ilibft/includes/
+	$(CC) -g $(CFLAGS) -c $(SRCS) -Iincludes/ -Ilibft/includes/
 
 lib:
 	make -C libft

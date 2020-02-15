@@ -73,5 +73,6 @@ int		get_line(char **fub, int fd, char **line)
 		free(fub[fd]);
 		fub[fd] = NULL;
 	}
+	free(tmp2);
 	return (1);
 }

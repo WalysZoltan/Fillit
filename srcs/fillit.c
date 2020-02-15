@@ -6,7 +6,7 @@
 /*   By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 17:57:51 by wzoltan           #+#    #+#             */
-/*   Updated: 2020/01/30 18:41:32 by wzoltan          ###   ########.fr       */
+/*   Updated: 2020/02/15 16:21:14 by wzoltan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int			check_line_for_hash_n_dots(char *line)
 	}
 	if ((l != 4) || (hash_count > 4))
 		ft_exit();
-	free(line);
 	return (hash_count);
 }
 
@@ -40,6 +39,7 @@ void		kostyl(char *line)
 {
 	if (ft_strlen(line))
 		ft_exit1(line);
+	free(line);
 }
 
 int			validity(int fd)
@@ -54,16 +54,20 @@ int			validity(int fd)
 		str_count = 0;
 		hash_count = 0;
 		while (str_count++ < 4 && get_next_line(fd, &line) != 0)
+		{
 			hash_count = hash_count + check_line_for_hash_n_dots(line);
+			free(line);
+		}
 		if (hash_count != 4)
-			ft_exit1(line);
+			ft_exit();
 		if (get_next_line(fd, &line) == 1)
 			kostyl(line);
 		else
 		{
 			if (get_next_line(fd, &line) == 0)
-				break ;
+				break;
 		}
+
 	}
 	close(fd);
 	return (0);
