@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_n_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbriccan <cbriccan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 18:38:19 by wzoltan           #+#    #+#             */
-/*   Updated: 2020/02/15 17:57:31 by wzoltan          ###   ########.fr       */
+/*   Updated: 2020/02/17 15:05:29 by cbriccan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void		ft_exit(void)
 void		ft_exit1(char *line)
 {
 	ft_putstr("error\n");
-	//free(line);
 	ft_strdel(&line);
 	exit(EXIT_FAILURE);
 }

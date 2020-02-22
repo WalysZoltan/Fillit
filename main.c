@@ -6,7 +6,7 @@
 /*   By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 18:40:53 by wzoltan           #+#    #+#             */
-/*   Updated: 2020/02/15 21:03:18 by wzoltan          ###   ########.fr       */
+/*   Updated: 2020/02/22 00:32:22 by wzoltan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,9 @@ t_tetris	*check_structure(int fd)
 		list = ft_create_node_end(list, buf, k + 'A');
 		k > 27 ? ft_exit() : k++;
 		if (!(get_next_line(fd, &line)))
-		{
-		    //free(line);
-			break;
-		}
-		//line = NULL;
+			break ;
 		buf = NULL;
 		free(buf);
-		//ft_strdel(&buf);
-		//free(line);
 		ft_strdel(&line);
 	}
 	return (list);
@@ -67,45 +61,22 @@ int			main(int argc, char **argv)
 	if (fd < 0)
 		ft_exit();
 	validity(fd);
+	ft_putendl("#1");
 	fd = open(argv[1], O_RDONLY);
 	list = check_structure(fd);
+	ft_putendl("#2");
 	solution(list);
-
-	//exit(EXIT_SUCCESS);
 }
 
-// void	free_list(t_tetris *list)
-// {
-// 	if (list->next)
-// 		free_list(list);
-// 	free(list->tet_id);
-// 	free(list);
-// }
-
-void	free_list(t_tetris *list)
+void		free_list(t_tetris *list)
 {
 	t_tetris *tmp;
 
 	while (list->next != NULL)
 	{
-	    tmp = list;
+		tmp = list;
 		free(list->tet_id);
 		list = list->next;
 		free(tmp);
 	}
 }
-/*int			main(void)
-{
-	t_tetris		*list;
-	int				fd;
-
-	fd = 0;
-	fd = open("file", O_RDONLY);
-	if (fd < 0)
-		ft_exit();
-	validity(fd);
-	fd = open("file", O_RDONLY);
-	list = check_structure(fd);
-	solution(list);
-	exit(EXIT_SUCCESS);
-}*/

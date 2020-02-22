@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wzoltan <wzoltan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbriccan <cbriccan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 13:39:25 by wzoltan           #+#    #+#             */
-/*   Updated: 2020/02/15 14:47:18 by wzoltan          ###   ########.fr       */
+/*   Updated: 2020/01/30 22:48:34 by cbriccan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define BUFF_SIZE 1
+# define BUFF_SIZE 100
 
 # include "fcntl.h"
 # include "sys/types.h"
